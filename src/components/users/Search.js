@@ -3,30 +3,30 @@ import GithubContext from '../../context/github/githubContext';
 import AlertContext from '../../context/alert/alertContext';
 
 const Search = () => {
-  const [text, setText] = useState('');
   const githubContext = useContext(GithubContext);
   const alertContext = useContext(AlertContext);
 
+  const [text, setText] = useState('');
+
   const onSubmit = e => {
     e.preventDefault();
-    //error message
     if (text === '') {
-      alertContext.setAlert('Please enter student id/fullname', 'light');
+      alertContext.setAlert('Please enter student id/fullName', 'light');
     } else {
       githubContext.searchUsers(text);
-      // clear the form
       setText('');
     }
   };
 
   const onChange = e => setText(e.target.value);
+
   return (
     <div>
       <form onSubmit={onSubmit} className='form'>
         <input
           type='text'
           name='text'
-          placeholder='Search Students...'
+          placeholder='Search Users...'
           value={text}
           onChange={onChange}
         />
@@ -36,7 +36,6 @@ const Search = () => {
           className='btn btn-dark btn-block'
         />
       </form>
-      {/* clear button */}
       {githubContext.users.length > 0 && (
         <button
           className='btn btn-light btn-block'
